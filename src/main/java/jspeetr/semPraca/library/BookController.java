@@ -1,11 +1,9 @@
-package jspeetr.semPraca.run;
+package jspeetr.semPraca.library;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
@@ -27,26 +25,13 @@ public class BookController {
         bookRepository.create(book);
     }
 
-    /* @GetMapping("/{id}")
-    Book findById(@PathVariable int id) {
-        Optional<Book> book = bookRepository.findById(id);
-        if (book.isEmpty()) {
-            throw new RunNotFoundException();
-        }
-        return book.get();
+    @PutMapping("/{book_id}")
+    public void updateBook(@PathVariable int book_id, @RequestBody Book book) {
+        bookRepository.update(book, book_id);
     }
 
-    //Put
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{id}")
-    void update(@Valid @RequestBody Book book, @PathVariable Integer id) {
-        bookRepository.update(book, id);
+    @DeleteMapping("/{book_id}")
+    public void deleteBook(@PathVariable int book_id) {
+        bookRepository.delete(book_id);
     }
-
-    //Delete
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable Integer id) {
-        bookRepository.delete(id);
-    }*/
 }

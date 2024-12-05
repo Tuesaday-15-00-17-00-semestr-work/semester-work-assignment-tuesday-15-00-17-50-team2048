@@ -1,8 +1,9 @@
 package jspeetr.semPraca.library;
 
 public record Book(
-        int id,
+        int book_id,
         String title,
         String author,
-        boolean available
+        String isbn,
+        int available_copies
 ) {}

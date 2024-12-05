@@ -1,4 +1,4 @@
-package jspeetr.semPraca.run;
+package jspeetr.semPraca.library;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,29 +26,29 @@ public class BookRepository {
     }
 
     public Optional<Book> findById(int id) {
-        return jdbcClient.sql("SELECT * FROM Books WHERE id = :id")
-                .param("id", id)
+        return jdbcClient.sql("SELECT * FROM Books WHERE book_id = ?")
+                .param(id)
                 .query(Book.class)
                 .optional();
     }
 
     public void create(Book book) {
-        var updated = jdbcClient.sql("INSERT INTO Books (id, title, author, available) VALUES (?, ?, ?, ?)")
-                .params(List.of(book.id(), book.title(), book.author(), book.available()))
+        var updated = jdbcClient.sql("INSERT INTO Books (title, author, isbn, available_copies) VALUES (?, ?, ?, ?)")
+                .params(List.of(book.title(), book.author(), book.isbn(), book.available_copies()))
                 .update();
         Assert.state(updated == 1, "Failed to create book " + book.title());
     }
 
     public void update(Book book, int id) {
-        var updated = jdbcClient.sql("UPDATE Books SET title = ?, author = ?, available = ? WHERE id = ?")
-                .params(List.of(book.title(), book.author(), book.available(), id))
+        var updated = jdbcClient.sql("UPDATE Books SET title = ?, author = ?, available_copies = ? WHERE book_id = ?")
+                .params(List.of(book.title(), book.author(), book.available_copies(), book.book_id()))
                 .update();
         Assert.state(updated == 1, "Failed to update book " + book.title());
     }
 
     public void delete(int id) {
-        var updated = jdbcClient.sql("DELETE FROM Books WHERE id = :id")
-                .param("id", id)
+        var updated = jdbcClient.sql("DELETE FROM Books WHERE book_id = ?")
+                .param(id)  // Ensure parameter matches the column name
                 .update();
         Assert.state(updated == 1, "Failed to delete book " + id);
     }
