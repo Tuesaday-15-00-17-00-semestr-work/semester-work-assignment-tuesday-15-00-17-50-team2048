@@ -39,13 +39,6 @@ public class BookRepository {
         Assert.state(updated == 1, "Failed to create book " + book.title());
     }
 
-    public void update(Book book, int id) {
-        var updated = jdbcClient.sql("UPDATE Books SET title = ?, author = ?, available_copies = ? WHERE book_id = ?")
-                .params(List.of(book.title(), book.author(), book.available_copies(), book.book_id()))
-                .update();
-        Assert.state(updated == 1, "Failed to update book " + book.title());
-    }
-
     public void delete(int id) {
         var updated = jdbcClient.sql("DELETE FROM Books WHERE book_id = ?")
                 .param(id)  // Ensure parameter matches the column name

@@ -1,11 +1,11 @@
 package jspeetr.semPraca.library;
 
-import org.apache.catalina.User;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -21,10 +21,25 @@ public class UserRepository {
                 .list();
     }
 
+    public Optional<Users> findById(int id) {
+        return jdbcClient.sql("SELECT * FROM Users WHERE user_id = ?")
+                .param(id)
+                .query(Users.class)
+                .optional();
+    }
+
     public void create(Users user) {
         var updated = jdbcClient.sql("INSERT INTO Users (username, password, role_id, email) VALUES (?, ?, ?, ?)")
                 .params(List.of(user.username(), user.password(), user.role_id(), user.email()))
                 .update();
         Assert.state(updated == 1, "Failed create user " + user.username());
+    }
+
+
+    public void delete(int userId) {
+        var updated = jdbcClient.sql("DELETE FROM Users WHERE user_id = ?")
+                .param(userId)
+                .update();
+        Assert.state(updated == 1, "Failed delete user " + userId);
     }
 }

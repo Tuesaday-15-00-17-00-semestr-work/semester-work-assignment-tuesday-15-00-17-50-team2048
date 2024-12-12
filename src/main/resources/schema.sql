@@ -2,8 +2,6 @@ CREATE TABLE IF NOT EXISTS Roles (
     role_id INTEGER PRIMARY KEY,
     role_name TEXT NOT NULL
 );
-INSERT OR IGNORE INTO Roles (role_id, role_name) VALUES (1, 'Library Administrator');
-INSERT OR IGNORE INTO Roles (role_id, role_name) VALUES (2, 'User');
 
 CREATE TABLE IF NOT EXISTS Books (
     book_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,11 +22,22 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Transactions (
     transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    book_id INTEGER,
-    actions INT,
-    date_of TIMESTAMP,
+    user_id INTEGER NOT NULL,
+    book_id INTEGER NOT NULL,
+    actions VARCHAR(20) NOT NULL,
+    date_of VARCHAR(20),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+CREATE TABLE IF NOT EXISTS Borrowed (
+    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(50) NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    date_of VARCHAR(20) NOT NULL,
+    transaction_id INTEGER NOT NULL,
+    FOREIGN KEY (title) REFERENCES Books(title),
+    FOREIGN KEY (author) REFERENCES Books(author),
+    FOREIGN KEY (date_of) REFERENCES Transactions(date_of)
 );
 

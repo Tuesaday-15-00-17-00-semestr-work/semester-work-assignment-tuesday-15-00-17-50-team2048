@@ -15,12 +15,12 @@ public class TransactionController {
         this.transactionRepository = transactionRepository;
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     void create(@Valid @RequestBody Transactions transaction) {
         transactionRepository.create(transaction);
     }
 
-    @GetMapping("")
+    @GetMapping("/fetch")
     public List<Transactions> findall() {
         return transactionRepository.findAll();
     }

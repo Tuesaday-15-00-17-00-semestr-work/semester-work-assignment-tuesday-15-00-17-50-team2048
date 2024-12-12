@@ -17,12 +17,4 @@ public class SemPracaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SemPracaApplication.class, args);
 	}
-
-	@Bean
-	CommandLineRunner runner(BookRepository bookRepository) {
-		return args -> {
-			Book book = new Book(1,"First Book", "Myslef", "5464544489449", 1023);
-			bookRepository.create(book);
-		};
-	}
 }

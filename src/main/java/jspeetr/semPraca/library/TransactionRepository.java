@@ -24,6 +24,6 @@ public class TransactionRepository {
         var updated = jdbcClient.sql("INSERT INTO Transactions (user_id, book_id, actions, date_of) VALUES (?, ?, ?, ?)")
                 .params(List.of(transactions.user_id(), transactions.book_id(), transactions.actions(), transactions.date_of()))
                 .update();
-        Assert.state(updated == 1, "Failed to transaction for book " + transactions.book_id());
+        Assert.state(updated == 1, "Failed to create transaction for book " + transactions.book_id());
     }
 }
