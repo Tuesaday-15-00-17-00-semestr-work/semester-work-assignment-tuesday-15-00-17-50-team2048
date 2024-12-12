@@ -10,6 +10,6 @@
 <BorderPane
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        fx:controller="org.example.frontend.Main"
+        fx:controller="org.example.frontend.MainWindow.Main"
         prefHeight="400.0" prefWidth="600.0">
 </BorderPane>
