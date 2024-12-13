@@ -134,9 +134,6 @@ The JavaFX UI provides:
 1. First you need to open backend and start
 2. Secondly you need to open frontend separatly and start
 3. Then you just work in the GUI
-   ```
-4. Install dependencies and configure the database.
-5. Run the application using your IDE or the command line.
 
 ## Credits
-Team2048 - Collaborative work by [Team Member Names].
+Team2048 - Peter Janoško
